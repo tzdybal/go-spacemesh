@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: go-spacemesh-workflow-
+spec:
+  entrypoint: go-spacemesh
+  templates:
+  - name: go-spacemesh
+    steps:
+    - - name: spawn-node
+        template: spawn-node
+
+  - name: spawn-node
+    container:
+      image: spacemesh/go-spacemesh:latest
+      imagePullPolicy: Never
+      # restartPolicy: Never
+      args: ["--poet-server=10.20.30.40:8000"]
+      command: [/bin/go-spacemesh]

@@ -41,7 +41,7 @@ COPY --from=server_builder /go/src/github.com/spacemeshos/go-spacemesh/build/go-
 COPY --from=server_builder /go/src/github.com/spacemeshos/go-spacemesh/build/go-p2p /bin/go-p2p
 COPY --from=server_builder /go/src/github.com/spacemeshos/go-spacemesh/build/go-sync /bin/go-sync
 
-ENTRYPOINT ["/bin/go-spacemesh"]
+CMD ["/bin/go-spacemesh"]
 EXPOSE 7513
 
 # profiling port
