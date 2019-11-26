@@ -7,13 +7,19 @@ spec:
   templates:
   - name: go-spacemesh
     steps:
-    - - name: spawn-node
-        template: spawn-node
+    - - name: spawn-bootstrap
+        template: spawn-bootstrap
+    # - - name: spawn-node
+    #     template: spawn-node
 
+  - name: spawn-bootstrap
+    container:
+      image: spacemesh/go-spacemesh:latest
+      imagePullPolicy: Never
+      command: [/bin/go-spacemesh]
   - name: spawn-node
     container:
       image: spacemesh/go-spacemesh:latest
       imagePullPolicy: Never
-      # restartPolicy: Never
       args: ["--poet-server=10.20.30.40:8000"]
       command: [/bin/go-spacemesh]
