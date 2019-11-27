@@ -38,4 +38,4 @@ kubens spacemesh-ns
 echo "\n\n"
 echo "git clone https://github.com/spacemeshos/poet.git"
 rm -rf poet
-git c minikubelone https://github.com/spacemeshos/poet.git
+git clone https://github.com/spacemeshos/poet.git
