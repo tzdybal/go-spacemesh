@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: poet-pod
+  labels:
+    app: poet
+spec:
+  containers:
+    - name: poet
+      image: spacemesh/poet:latest
+      imagePullPolicy: Never

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poet-service
+spec:
+  selector:
+    app: poet
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+    - name: rpc
+      port: 50002
+      protocol: TCP

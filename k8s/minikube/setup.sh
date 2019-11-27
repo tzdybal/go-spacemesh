@@ -18,40 +18,24 @@ echo "Installing minikube"
 brew install minikube
 minikube version
 
-echo "\n\n"
-echo "Installing argo"
-brew install argoproj/tap/argo
+# Start minikube
+minikube start -p spacemesh --vm-driver=hyperkit
 
 # Set docker env
 eval $(minikube docker-env)
 
-# Create profile
-minikube profile local-spacemesh
+# Set context to `spacemesh`
+kubectl config use-context spacemesh
 
-# Start
-minikube start -p local-spacemesh --vm-driver=hyperkit
-
-# Set context to `local-spacemesh`
-kubectx local-spacemesh
-
-# Create argo namespace
-if [[ $(kubens | grep -L -w "argo") ]]; then
-  kubectl create ns argo
+# Create `spacemesh-ns` namespace
+if [[ $(kubens | grep -L -w "spacemesh-ns") ]]; then
+  kubectl create ns spacemesh-ns
 fi
 
-# Switch to namespace for argo
-kubens argo
-
-# Apply argo config
-kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/install.yaml
+# Switch to `spacemesh-ns` namespace
+kubens spacemesh-ns
 
 echo "\n\n"
 echo "git clone https://github.com/spacemeshos/poet.git"
 rm -rf poet
-git clone https://github.com/spacemeshos/poet.git
-
-# Config argo UI
-kubectl -n argo port-forward deployment/argo-ui 8001:8001
-# browser url: http://localhost:8001
-
-
+git c minikubelone https://github.com/spacemeshos/poet.git

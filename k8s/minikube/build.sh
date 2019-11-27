@@ -1,25 +1,22 @@
+# Set context to `spacemesh`
+kubectx spacemesh
+
+# Switch to namespace `spacemesh-ns`
+kubens spacemesh-ns
+
 # Set Docker env
 eval $(minikube docker-env)
 
-# Set `kubectl` context to `local-spacemesh`
-kubectl config use-context local-spacemesh
-
-# Build poet
+# Get latest poet source
 cd poet
 git pull
+cd ..
 
+# Build poet image
+docker build --tag spacemesh/poet --file ./poet/Dockerfile ./poet
 
 # Build go-spacemesh image
-# docker build --progress plain --tag spacemesh/go-spacemesh --file ../../Dockerfile ../..
-#
-# # Delete all argo workflows
-# argo delete --all
-#
-# # Delete all remaining pods
-# kubectl delete --all pods
-#
-# # Create pod
-# # kubectl create -f pod.yaml
-#
-# # Verify pod is running
-# kubectl get pods
+docker build --progress plain --tag spacemesh/go-spacemesh --file ../../Dockerfile ../..
+
+# Delete all `spacemesh-ns` pods
+kubectl delete --all pods --namespace=spacemesh-ns
