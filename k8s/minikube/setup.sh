@@ -8,24 +8,8 @@ kubectl version
 echo "Installing kubectx"
 brew install kubectx
 
-echo "\n\n"
-echo "Installing hyperkit"
-brew install hyperkit
-hyperkit -v
-
-echo "\n\n"
-echo "Installing minikube"
-brew install minikube
-minikube version
-
-# Start minikube
-minikube start -p spacemesh --vm-driver=hyperkit
-
-# Set docker env
-eval $(minikube docker-env)
-
-# Set context to `spacemesh`
-kubectl config use-context spacemesh
+# Set context to `docker-for-desktop`
+kubectl config use-context docker-for-desktop
 
 # Create `spacemesh-ns` namespace
 if [[ $(kubens | grep -L -w "spacemesh-ns") ]]; then
