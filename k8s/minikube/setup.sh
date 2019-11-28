@@ -8,8 +8,8 @@ kubectl version
 echo "Installing kubectx"
 brew install kubectx
 
-# Set context to `docker-for-desktop`
-kubectl config use-context docker-for-desktop
+# Set context to `docker-desktop`
+kubectl config use-context docker-desktop
 
 # Create `spacemesh-ns` namespace
 if [[ $(kubens | grep -L -w "spacemesh-ns") ]]; then

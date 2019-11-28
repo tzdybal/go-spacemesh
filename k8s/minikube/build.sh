@@ -1,5 +1,5 @@
-# Set context to `docker-for-desktop`
-kubectx docker-for-desktop
+# Set context to `docker-desktop`
+kubectx docker-desktop
 
 # Switch to namespace `spacemesh-ns`
 kubens spacemesh-ns
