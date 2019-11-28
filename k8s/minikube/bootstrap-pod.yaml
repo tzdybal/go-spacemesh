@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bootstrap-pod
+  labels:
+    app: bootstrap
+spec:
+  containers:
+    - name: bootstrap
+      image: spacemesh/go-spacemesh:latest
+      imagePullPolicy: Never
+      command: ["/bin/go-spacemesh"]
+      args: ["--poet-server=poet-service.spacemesh-ns.svc.cluster.local:8080"]
