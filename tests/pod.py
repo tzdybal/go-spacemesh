@@ -1,12 +1,14 @@
-import re
-import yaml
-import time
-
-from os import path
-from urllib3.exceptions import NewConnectionError, MaxRetryError, ConnectTimeoutError
 from kubernetes import client
-from pytest_testconfig import config as testconfig
 from kubernetes.client.rest import ApiException
+from os import path
+from pytest_testconfig import config as testconfig
+import re
+import shlex
+import subprocess
+import time
+from urllib3.exceptions import NewConnectionError, MaxRetryError, ConnectTimeoutError
+import yaml
+
 from tests.misc import CoreV1ApiClient
 
 
@@ -72,6 +74,17 @@ def delete_pod(pod_name, name_space):
 
     wait_to_pod_to_be_deleted(pod_name, name_space)
     return resp
+
+
+def delete_pod_cmd(pod_name, namespace):
+    cmd = f"kubectl -n {namespace} delete pod {pod_name}"
+    process = subprocess.run(shlex.split(cmd),
+                             stdout=subprocess.PIPE,
+                             universal_newlines=True)
+
+    print("deletion stdout", process.stdout)
+    print("deletion stderr", process.stderr)
+    return process.returncode == 0
 
 
 def check_for_restarted_pods(namespace, specific_deployment_name=''):

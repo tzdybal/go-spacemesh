@@ -42,9 +42,8 @@ spec:
     - metadata:
         name: client-vol
       spec:
-        accessModes:
-          - ReadWriteOnce
+        accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 1Gi
-        storageClassName: standard        
+        storageClassName: standard

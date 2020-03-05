@@ -42,7 +42,6 @@ def wait_to_statefulset_to_be_ready(statefulset_name, name_space, time_out=None)
 
 
 def create_statefulset(file_name, name_space, deployment_id=None, replica_size=1, container_specs=None, time_out=None):
-    resp1 = None
     with open(os.path.join(os.path.dirname(__file__), file_name)) as f:
         dep = yaml.safe_load(f)
 
@@ -58,7 +57,7 @@ def create_statefulset(file_name, name_space, deployment_id=None, replica_size=1
         k8s_beta = client.AppsV1Api()
         resp1 = k8s_beta.create_namespaced_stateful_set(body=dep, namespace=name_space)
         wait_to_statefulset_to_be_ready(resp1.metadata._name, name_space, time_out=time_out)
-    return resp1
+        return resp1
 
 
 def delete_statefulset(statefulset_name, name_space):
