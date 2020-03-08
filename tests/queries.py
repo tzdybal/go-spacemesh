@@ -148,9 +148,9 @@ def get_deployment_logs(namespace, depname):
     get_podlist_logs(namespace, lst)
 
 
-def poll_query_message(indx, namespace, client_po_name, fields, findFails=False, startTime=None, expected=None,
+def poll_query_message(indx, namespace, client_po_name, fields, find_fails=False, start_time=None, expected=None,
                        query_time_out=120):
-    hits = query_message(indx, namespace, client_po_name, fields, findFails, startTime)
+    hits = query_message(indx, namespace, client_po_name, fields, find_fails, start_time)
     if expected is None:
         return hits
 
@@ -162,7 +162,7 @@ def poll_query_message(indx, namespace, client_po_name, fields, findFails=False,
 
         time.sleep(10)
         time_passed += 10
-        hits = query_message(indx, namespace, client_po_name, fields, findFails, startTime)
+        hits = query_message(indx, namespace, client_po_name, fields, find_fails, start_time)
     return hits
 
 

@@ -116,7 +116,7 @@ def test_client(init_session, setup_clients, add_curl, save_log_on_exit):
                                namespace=testconfig['namespace'],
                                client_po_name=setup_clients.deployment_name,
                                fields=fields,
-                               findFails=False,
+                               find_fails=False,
                                expected=len(setup_clients.pods))
 
     assert len(peers) == len(setup_clients.pods)
@@ -131,7 +131,7 @@ def test_add_client(add_client):
                               namespace=testconfig['namespace'],
                               client_po_name=add_client,
                               fields=fields,
-                              findFails=True,
+                              find_fails=True,
                               expected=1)
     assert len(hits) == 1, "Could not find new Client bootstrap message pod:{0}".format(add_client)
 
@@ -148,7 +148,7 @@ def test_add_many_clients(init_session, setup_bootstrap, setup_clients):
                                   namespace=testconfig['namespace'],
                                   client_po_name=p,
                                   fields=fields,
-                                  findFails=True,
+                                  find_fails=True,
                                   expected=1)
         assert len(hits) == 1, "Could not find new Client bootstrap message pod:{0}".format(p)
 
@@ -181,7 +181,7 @@ def test_gossip(init_session, setup_clients, add_curl):
                                namespace=testconfig['namespace'],
                                client_po_name=setup_clients.deployment_name,
                                fields=fields,
-                               findFails=False,
+                               find_fails=False,
                                expected=total_expected_gossip)
 
     assert total_expected_gossip == len(after), "test_gossip: Total gossip messages in ES is not as expected"
@@ -217,7 +217,7 @@ def test_many_gossip_messages(setup_clients, add_curl):
                                    namespace=testconfig['namespace'],
                                    client_po_name=setup_clients.deployment_name,
                                    fields=fields,
-                                   findFails=False,
+                                   find_fails=False,
                                    expected=total_expected_gossip)
 
         assertion_msg = "test_many_gossip_messages: Total gossip messages in ES is not as expected"
@@ -267,7 +267,7 @@ def send_msgs(setup_clients, api, headers, total_expected_gossip, msg_size=10000
                                namespace=testconfig['namespace'],
                                client_po_name=setup_clients.deployment_name,
                                fields=headers,
-                               findFails=False,
+                               find_fails=False,
                                expected=total_expected_gossip)
 
     err_msg = "msg_testing: Total gossip messages in ES is not as expected"
@@ -330,7 +330,7 @@ def test_diff_client_ver(setup_bootstrap, setup_clients, add_curl, add_clients):
                                   namespace=setup_bootstrap.deployment_id,
                                   client_po_name=cl,
                                   fields=headers,
-                                  findFails=False)
+                                  find_fails=False)
         ass_err = f"client is not supposed to discover bootstrap, on: {cl}"
         assert len(hits) == 0, ass_err
 
@@ -358,7 +358,7 @@ def test_late_bootstraps(init_session, setup_bootstrap, setup_clients):
                                   namespace=testconfig['namespace'],
                                   client_po_name=i[0],
                                   fields=fields,
-                                  findFails=False,
+                                  find_fails=False,
                                   expected=1)
 
         assert len(hits) == 1, "Could not find new Client bootstrap message. client: {0}".format(i[0])

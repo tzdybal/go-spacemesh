@@ -58,6 +58,7 @@ clientv2:
   replicas: 1
   args:
     randcon: '8'
+    data-folder: '/usr/share/spacemesh/'
     hare-committee-size: '20'
     hare-max-adversaries: '5'
     hare-round-duration-sec: '10'

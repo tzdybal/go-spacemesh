@@ -178,6 +178,7 @@ def setup_clients_in_namespace(namespace, bs_deployment_info, client_deployment_
                      setup_poet=poet)
 
     k8s_file, k8s_create_func = choose_k8s_object_create(client_config, dep_file_path, ss_file_path)
+    print("Using k8s file:", k8s_file)
     resp = k8s_create_func(k8s_file, namespace,
                            deployment_id=client_deployment_info.deployment_id,
                            replica_size=client_config['replicas'],

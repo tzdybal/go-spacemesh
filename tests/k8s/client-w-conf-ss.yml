@@ -35,7 +35,7 @@ spec:
         - containerPort: 9090
         volumeMounts:
         - name: client-vol
-          mountPath: /usr/share/spacemesh          
+          mountPath: /usr/share/spacemesh
       nodeSelector:
         role: tests
   volumeClaimTemplates:
