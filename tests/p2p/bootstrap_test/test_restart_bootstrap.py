@@ -43,7 +43,7 @@ def test_reboot_bootstrap(init_session):
     # DELETE bootstrap node
     assert pod.delete_pod_cmd(pod_name, session_id), "bootstrap was not deleted"
     print(f"sleeping for {sleep_time} seconds after bootstrap deletion node")
-    time.sleep(1000)
+    time.sleep(sleep_time)
 
     new_key = pod.search_phrase_in_pod_log(pod_name, session_id, BOOTSTRAP_LABEL, key_regex, group=bootstrap_group_id)
     print(f"new key is: {new_key}")
