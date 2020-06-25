@@ -15,7 +15,6 @@ import (
 
 // NodeService is a grpc server providing the NodeService
 type NodeService struct {
-	Service
 	Network     api.NetworkAPI // P2P Swarm
 	Tx          api.TxAPI      // Mesh
 	GenTime     api.GenesisTimeAPI
@@ -29,12 +28,9 @@ func (s NodeService) registerService(server *grpc.Server) {
 
 // NewNodeService creates a new grpc service using config data.
 func NewNodeService(
-	port int, net api.NetworkAPI, tx api.TxAPI, genTime api.GenesisTimeAPI,
+	net api.NetworkAPI, tx api.TxAPI, genTime api.GenesisTimeAPI,
 	syncer api.Syncer) *NodeService {
 	return &NodeService{
-		Service: Service{
-			port,
-		},
 		Network:     net,
 		Tx:          tx,
 		GenTime:     genTime,
