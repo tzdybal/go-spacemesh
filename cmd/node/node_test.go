@@ -350,12 +350,13 @@ func TestSpacemeshApp_GrpcService(t *testing.T) {
 	r := require.New(t)
 	app := NewSpacemeshApp()
 
-	// Make sure the service is not running by default
 	Cmd.Run = func(cmd *cobra.Command, args []string) {
 		r.NoError(app.Initialize(cmd, args))
 		app.startAPIServices(PostMock{}, NetMock{})
 	}
 	defer app.stopServices()
+
+	// Make sure the service is not running by default
 	str, err := testArgs(app) // no args
 	r.Empty(str)
 	r.NoError(err)
@@ -373,7 +374,7 @@ func TestSpacemeshApp_GrpcService(t *testing.T) {
 	response, err := c.Echo(context.Background(), &pb.EchoRequest{
 		Msg: &pb.SimpleString{Value: message}})
 	r.Error(err)
-	r.Equal("rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing dial tcp 127.0.0.1:1234: connect: connection refused\"", err.Error())
+	r.Contains(err.Error(), "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing dial tcp")
 	r.NoError(conn.Close())
 
 	resetFlags()
@@ -385,6 +386,9 @@ func TestSpacemeshApp_GrpcService(t *testing.T) {
 	r.NoError(err)
 	r.Equal(1234, app.Config.API.NewGrpcServerPort)
 	r.Equal(true, app.Config.API.StartNodeService)
+
+	// Give the server a chance to start
+	time.Sleep(3 * time.Second)
 
 	// Set up a new connection to the server
 	conn, err = grpc.Dial("localhost:1234", grpc.WithInsecure())
